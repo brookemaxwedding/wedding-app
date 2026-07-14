@@ -47,15 +47,24 @@ const BADGE_STYLES = {
   yes: 'bg-sage-100 text-sage-600',
   no: 'bg-red-100 text-red-700',
   pending: 'bg-amber-100 text-amber-700',
-  // contract
+  // contract / task status
   signed: 'bg-sage-100 text-sage-600',
+  done: 'bg-sage-100 text-sage-600',
+  completed: 'bg-sage-100 text-sage-600',
   proposal: 'bg-brand-100 text-brand-700',
+  'in progress': 'bg-brand-100 text-brand-700',
   inquiry: 'bg-amber-100 text-amber-700',
+  'to do': 'bg-ink-100 text-ink-600',
+  'not started': 'bg-ink-100 text-ink-400',
   none: 'bg-ink-100 text-ink-400',
+  // priority
+  high: 'bg-red-100 text-red-700',
+  medium: 'bg-amber-100 text-amber-700',
+  low: 'bg-ink-100 text-ink-600',
 }
 
 export function Badge({ status, children }) {
-  const style = BADGE_STYLES[status] || 'bg-ink-100 text-ink-600'
+  const style = BADGE_STYLES[String(status ?? '').trim().toLowerCase()] || 'bg-ink-100 text-ink-600'
   return (
     <span
       className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium capitalize ${style}`}

@@ -2,18 +2,20 @@ import { useState, useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { navItems, primaryMobile } from './nav.js'
 import Icon from './Icon.jsx'
-import { wedding } from '../data/weddingData.js'
+import { useWeddingData } from '../context/WeddingData.jsx'
+import { coupleNames } from '../lib/format.js'
 import { daysUntil } from '../lib/format.js'
 
 // Brand block reused in the desktop sidebar and mobile drawer.
 function Brand() {
+  const { config } = useWeddingData()
   return (
     <div className="flex items-center gap-3 px-2">
       <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-500 text-white">
         <Icon name="ring" className="h-5 w-5" />
       </span>
       <div className="leading-tight">
-        <p className="font-serif text-lg font-semibold text-ink-900">{wedding.coupleNames}</p>
+        <p className="font-serif text-lg font-semibold text-ink-900">{coupleNames(config)}</p>
         <p className="text-xs text-ink-400">Wedding HQ</p>
       </div>
     </div>
@@ -45,7 +47,8 @@ function NavList({ onNavigate }) {
 export default function Layout({ children }) {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const location = useLocation()
-  const days = daysUntil(wedding.date)
+  const { config } = useWeddingData()
+  const days = config.WeddingDate != null ? daysUntil(config.WeddingDate) : null
 
   // Close the mobile drawer whenever the route changes.
   useEffect(() => setDrawerOpen(false), [location.pathname])
@@ -58,8 +61,16 @@ export default function Layout({ children }) {
         <NavList />
         <div className="rounded-xl bg-brand-50 p-4 text-center">
           <p className="text-xs uppercase tracking-wide text-brand-600">Countdown</p>
-          <p className="font-serif text-2xl font-semibold text-brand-700">{days} days</p>
+          <p className="font-serif text-2xl font-semibold text-brand-700">
+            {days == null ? '—' : `${days} days`}
+          </p>
         </div>
+        <a
+          href="#/rsvp"
+          className="mt-3 block rounded-xl border border-ink-100 py-2 text-center text-xs font-medium text-ink-500 hover:bg-ink-50 hover:text-brand-600"
+        >
+          Guest RSVP page ↗
+        </a>
       </aside>
 
       {/* Mobile top bar */}

@@ -10,18 +10,37 @@ export const currency = (n, code = 'USD') =>
         maximumFractionDigits: 0,
       }).format(n)
 
+// Parse a Sheet date value into a Date. A bare "YYYY-MM-DD" is parsed as LOCAL
+// midnight (not UTC), so it doesn't render as the previous day in western time
+// zones. Other formats fall back to the native parser.
+function toDate(value) {
+  if (value instanceof Date) return value
+  const s = String(value ?? '')
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s)
+  if (m) return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]))
+  return new Date(s)
+}
+
 export const shortDate = (iso) =>
   iso
-    ? new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+    ? toDate(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
     : '—'
 
 // Whole days from now until the given date (0 if today, negative if past).
 export function daysUntil(iso) {
-  const target = new Date(iso)
+  const target = toDate(iso)
   const now = new Date()
   const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate())
   const startOfTarget = new Date(target.getFullYear(), target.getMonth(), target.getDate())
   return Math.round((startOfTarget - startOfToday) / 86_400_000)
+}
+
+// "Partner One & Partner Two" from the Config tab, with a friendly fallback.
+export function coupleNames(config = {}) {
+  const a = config.PartnerOneName
+  const b = config.PartnerTwoName
+  if (a && b) return `${a} & ${b}`
+  return a || b || 'Our Wedding'
 }
 
 // Break a day count into months + remaining days for a friendlier countdown.
