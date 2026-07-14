@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Redirecting…</title>
+    <script>
+      // GitHub Pages SPA fallback.
+      // The site uses hash routing, so its real URLs look like
+      //   /wedding-app/#/rsvp
+      // But if someone hard-refreshes or shares a PATH-style link like
+      //   /wedding-app/rsvp
+      // GitHub Pages can't find that file and serves this 404 page. We convert
+      // the path into the equivalent hash route and bounce to it, so deep links
+      // and refreshes never dead-end.
+      ;(function () {
+        var base = '/wedding-app/'
+        var loc = window.location
+        var path = loc.pathname
+        if (path.indexOf(base) === 0) {
+          var sub = path.slice(base.length).replace(/\/+$/, '')
+          loc.replace(base + (sub ? '#/' + sub : '') + loc.search)
+        } else {
+          loc.replace(base)
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <p>Redirecting…</p>
+  </body>
+</html>

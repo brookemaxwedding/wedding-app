@@ -99,18 +99,25 @@ Config:   Key, Value  (WeddingDate, Venue, TotalBudget, PartnerOneName,
   editable inline — click a cell to edit; it saves to the Sheet instantly.
 - **`/rsvp`** — a **public**, token-free page. Guests enter their invite code,
   see their party, and submit attending / meal / dietary / plus-one. This is the
-  only page guests ever see. Link: `https://<your-site>/#/rsvp`.
+  only page guests ever see. Link:
+  `https://brookemaxwedding.github.io/wedding-app/#/rsvp`.
 
 ## Deploying to GitHub Pages
+
+Live site: **https://brookemaxwedding.github.io/wedding-app/**
 
 The workflow at [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
 builds and publishes on every push to `main`.
 
-1. Repo **Settings → Pages → Source → GitHub Actions**.
-2. Repo **Settings → Secrets and variables → Actions** → add `VITE_SHEET_URL`
-   and `VITE_SHEET_TOKEN` (the workflow injects them at build time).
+1. Repo **Settings → Pages → Build and deployment → Source → GitHub Actions**.
+2. Repo **Settings → Secrets and variables → Actions → New repository secret** →
+   add `VITE_SHEET_URL` and `VITE_SHEET_TOKEN` (the workflow injects them at
+   build time; GitHub Pages can't read your local `.env`).
 
-`vite.config.js` uses `base: './'` so it works regardless of repo name.
+`vite.config.js` sets `base: '/wedding-app/'` to match the project-site path.
+Routing uses HashRouter, and [`public/404.html`](public/404.html) bounces any
+path-style deep link (e.g. `/wedding-app/rsvp`) to its hash route so refreshes
+never 404.
 
 ## Mobile
 

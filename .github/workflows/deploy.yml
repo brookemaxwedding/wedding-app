@@ -1,10 +1,12 @@
 name: Deploy to GitHub Pages
 
 # Builds the Vite site and publishes ./dist to GitHub Pages on every push to
-# main. No secrets or API keys needed — it's a fully static build.
+# main.
 #
-# One-time setup: in the repo, go to Settings → Pages → "Build and deployment"
-# → Source: "GitHub Actions".
+# One-time setup in the repo:
+#   1. Settings → Pages → "Build and deployment" → Source: "GitHub Actions".
+#   2. Settings → Secrets and variables → Actions → add VITE_SHEET_URL and
+#      VITE_SHEET_TOKEN (injected into the build step below).
 
 on:
   push:
