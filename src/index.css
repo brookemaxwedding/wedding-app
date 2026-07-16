@@ -1,55 +1,76 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------
-   Wedding HQ theme — warm, editorial palette (blush / terracotta / sage).
+   Wedding HQ theme — black & white with a fresh "cute green" accent.
    Tailwind v4 reads these @theme tokens and generates utilities like
    bg-brand-500, text-ink-700, etc.
+
+   NOTE: the brand green is defined here in CODE (not the Sheet's AccentColor),
+   because Config has no ID column and the app can't write that cell. To change
+   the accent, edit --color-brand-500 below (and the matching shades).
 --------------------------------------------------------------------------- */
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
 
-  /* Terracotta — primary brand */
-  --color-brand-50: #fbf3ee;
-  --color-brand-100: #f6e2d6;
-  --color-brand-200: #ecc4ad;
-  --color-brand-300: #dfa07f;
-  --color-brand-400: #cf7f57;
-  --color-brand-500: #b9673e;
-  --color-brand-600: #9d6b53;
-  --color-brand-700: #7c4a34;
-  --color-brand-800: #5c3626;
-  --color-brand-900: #40261a;
+  /* Cute green — primary brand (replaces the old gold/terracotta) */
+  --color-brand-50: #eaf5ef;
+  --color-brand-100: #d5ecdf;
+  --color-brand-200: #abd8bf;
+  --color-brand-300: #82c59e;
+  --color-brand-400: #54af7b;
+  --color-brand-500: #2e9e5e;
+  --color-brand-600: #288b53;
+  --color-brand-700: #206e42;
+  --color-brand-800: #185231;
+  --color-brand-900: #123c24;
 
-  /* Sage — secondary accent */
-  --color-sage-50: #f2f5f0;
-  --color-sage-100: #e0e8da;
-  --color-sage-200: #c2d1b6;
-  --color-sage-300: #9db38b;
-  --color-sage-400: #7c9668;
-  --color-sage-500: #5f784c;
-  --color-sage-600: #4a5f3b;
+  /* Sage — softer secondary green for positive/confirmed states */
+  --color-sage-50: #eef5f0;
+  --color-sage-100: #dcebe1;
+  --color-sage-200: #bcd7c5;
+  --color-sage-300: #93bda2;
+  --color-sage-400: #6f9e80;
+  --color-sage-500: #537f63;
+  --color-sage-600: #3f6a4d;
 
-  /* Warm neutrals for text/surfaces */
-  --color-ink-50: #f7f5f3;
-  --color-ink-100: #ece7e2;
-  --color-ink-200: #d8cfc6;
-  --color-ink-400: #9a8f84;
-  --color-ink-600: #6b6058;
-  --color-ink-700: #4b433d;
-  --color-ink-900: #2a2521;
+  /* Neutral grays — the "black & white" foundation */
+  --color-ink-50: #f6f6f6;
+  --color-ink-100: #ececec;
+  --color-ink-200: #dadada;
+  --color-ink-400: #9a9a9a;
+  --color-ink-600: #5b5b5b;
+  --color-ink-700: #383838;
+  --color-ink-900: #171717;
 }
 
 html {
   -webkit-text-size-adjust: 100%;
 }
 
+html {
+  /* Cream fallback matches the photo's center so there's no flash on load. */
+  background-color: #f4f1ec;
+}
+
 body {
   margin: 0;
-  background-color: var(--color-ink-50);
   color: var(--color-ink-900);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+}
+
+/* Roses photo as a fixed, full-viewport frame. A fixed pseudo-element (rather
+   than `background-attachment: fixed`, which iOS Safari renders incorrectly) so
+   it works on Brooke's phone: the blooms stay framing the viewport edges while
+   content scrolls over the calm cream center. White cards keep text readable. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: url("./assets/roses.jpeg") center / cover no-repeat;
+  pointer-events: none;
 }
 
 /* Respect iOS safe areas so the mobile bottom nav clears the home bar. */

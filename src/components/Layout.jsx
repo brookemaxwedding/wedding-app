@@ -54,7 +54,7 @@ export default function Layout({ children }) {
   useEffect(() => setDrawerOpen(false), [location.pathname])
 
   return (
-    <div className="min-h-screen bg-ink-50">
+    <div className="min-h-screen">
       {/* Desktop sidebar */}
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r border-ink-100 bg-white p-4 lg:flex">
         <Brand />

@@ -25,10 +25,12 @@ There is no placeholder data anymore.
 
 - `WeddingDate` → the countdown
 - `TotalBudget` → the budget target / progress bar
-- `AccentColor` → the entire theme (see `src/lib/theme.js`, which expands one
-  hex into the full `--color-brand-*` scale at runtime)
 - `PartnerOneName` / `PartnerTwoName` → couple name in the header & sidebar
 - `Venue`, `Location` → shown on the Overview
+
+The `AccentColor` cell is **ignored** — the theme (black & white + green) is
+defined in code (`src/index.css`), because Config has no ID column so the app
+can't write that cell. Change the accent by editing `--color-brand-*` there.
 
 ## Column headers = field names
 

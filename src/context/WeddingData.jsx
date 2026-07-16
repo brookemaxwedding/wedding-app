@@ -1,6 +1,5 @@
 import { createContext, useContext, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import * as api from '../lib/api.js'
-import { applyAccent } from '../lib/theme.js'
 
 // ---------------------------------------------------------------------------
 //  The single data layer. Fetches every tab once on load, caches it in state,
@@ -48,10 +47,8 @@ export function WeddingDataProvider({ children }) {
     return Object.fromEntries(rows.map((r) => [r.Key, r.Value]))
   }, [data])
 
-  // Drive the theme from Config.AccentColor whenever it changes.
-  useEffect(() => {
-    if (config.AccentColor) applyAccent(config.AccentColor)
-  }, [config.AccentColor])
+  // Theme is defined in code (src/index.css), not the Sheet — Config has no ID
+  // column so the app can't manage AccentColor. The cell is simply ignored.
 
   // --- Optimistic write helpers -----------------------------------------
 

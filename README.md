@@ -51,8 +51,8 @@ Everything flows through one context, [`src/context/WeddingData.jsx`](src/contex
   updates** — the UI changes instantly and rolls back with a toast if the Sheet
   rejects the write, so edits feel immediate.
 - The `Config` tab drives the **countdown** (`WeddingDate`), **budget bar**
-  (`TotalBudget`), **theme** (`AccentColor` → full color scale at runtime), and
-  couple names (`PartnerOneName` / `PartnerTwoName`).
+  (`TotalBudget`), and couple names (`PartnerOneName` / `PartnerTwoName`). The
+  theme (black & white + green) is defined in code (`src/index.css`).
 
 See [`src/data/README.md`](src/data/README.md) for the full map.
 

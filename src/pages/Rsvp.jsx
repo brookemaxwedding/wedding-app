@@ -20,7 +20,7 @@ function extractParty(res) {
 }
 
 const shell =
-  'min-h-screen bg-ink-50 flex flex-col items-center px-4 py-10 sm:py-16'
+  'min-h-screen flex flex-col items-center px-4 py-10 sm:py-16'
 const card = 'w-full max-w-lg rounded-3xl border border-ink-100 bg-white p-6 shadow-sm sm:p-8'
 
 export default function Rsvp() {
